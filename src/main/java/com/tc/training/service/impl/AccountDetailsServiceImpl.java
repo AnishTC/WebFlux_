@@ -2,14 +2,10 @@ package com.tc.training.service.impl;
 
 import com.tc.training.dtos.inputdto.AccountDetailsInputDto;
 import com.tc.training.dtos.outputdto.AccountDetailsOutputDto;
-import com.tc.training.dtos.outputdto.FDDetails;
 import com.tc.training.dtos.outputdto.HomePageOutputDto;
-import com.tc.training.dtos.outputdto.UserOutputDto;
 import com.tc.training.exception.AccountNotFoundException;
-import com.tc.training.exception.CustomException;
 import com.tc.training.mapper.AccountDetailsMapper;
 import com.tc.training.model.AccountDetails;
-import com.tc.training.model.User;
 import com.tc.training.repo.AccountDetailsRepository;
 import com.tc.training.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -68,20 +62,14 @@ public class AccountDetailsServiceImpl implements AccountDetailsService {
                                                     })
                                                     .flatMap(account -> {
                                                         return accountDetailsRepository.save(accountDetails);
-                                                    });
-                                                    /*.map(account -> {
+                                                    })
+                                                    .map(account -> {
                                                         account.setNew(Boolean.FALSE);
                                                         return account;
-                                                    });*/
+                                                    });
                                         })
-                                .map(s -> new AccountDetailsOutputDto());
-//                                .map(savedAccount -> savedAccount.map(savedAccount1 -> {
-//                                    sendEmail(accountDetailsInputDto.getEmail(), accountDetails.getUser().getPassword(), accountDetails.getAccountNumber());
-//                                    AccountDetailsOutputDto outputDto = accountDetailsMapper.AccountDetailsToAccountDetailsOutputDto(savedAccount1);
-//                                    outputDto.setEmail(accountDetailsInputDto.getEmail());
-//                                    return outputDto;
-//                                }))
-//                                .flatMap(mono -> mono);
+
+                                .map(savedAccount -> accountDetailsMapper.AccountDetailsToAccountDetailsOutputDto(savedAccount));
 
 
     }

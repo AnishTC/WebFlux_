@@ -1,5 +1,5 @@
 package com.tc.training.utils;
 
 public enum Role {
-    CUSTOMER,MANAGER
+    ROLE_CUSTOMER,ROLE_MANAGER
 }

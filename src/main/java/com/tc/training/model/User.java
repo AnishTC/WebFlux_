@@ -10,7 +10,8 @@ import org.springframework.data.annotation.Id;
 
 import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.*;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -42,7 +43,7 @@ public class User {
  private String phoneNumber;
 
  @Enumerated(EnumType.STRING)
- private Role roleName = Role.CUSTOMER;
+ private Role roleName = Role.ROLE_CUSTOMER;
 
 
  public UUID getId() {
